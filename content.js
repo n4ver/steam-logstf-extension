@@ -1,9 +1,7 @@
-// A central registry for your services
 const services = [
     {
         name: "Logs.tf",
         urlBase: "https://logs.tf/profile/",
-        // Ensure this logic only triggers on Steam Community
         isActive: () => window.location.hostname === "steamcommunity.com"
     },
     {
@@ -37,14 +35,14 @@ function injectLinks() {
     const actionArea = document.querySelector('.profile_header_actions');
     if (!actionArea || document.getElementById('my-link-container')) return;
 
-    // 1. Create a container for all your links
+    // Link Container, use our own div to escape steam's flexbox
     const container = document.createElement('div');
     container.id = 'my-link-container';
     container.style.display = 'flex';
     container.style.gap = '10px';
     container.style.marginTop = '10px';
 
-    // 2. Add your links
+    // Link Builder
     services.forEach(service => {
         const link = document.createElement('a');
         link.href = `${service.urlBase}${steamId}`;
@@ -54,7 +52,7 @@ function injectLinks() {
         container.appendChild(link);
     });
 
-    // 3. Add to the action area
+    // Append full link container
     actionArea.appendChild(container);
 }
 
